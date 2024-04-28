@@ -1,0 +1,27 @@
+<% return unless action_name == "index" || action_name == "edit" %>
+<% return if controller_name == "users" %>
+
+<aside class="pt-5 w-56 px-4 h-screen bg-gray-100 fixed">
+
+  <%= render "workspace_switcher" %>
+
+  <ul class="flex flex-col mt-16">
+    <li class="flex-1">
+      <%= link_to "Surveys", workspace_projects_path(current_workspace), class: "block rounded py-2 px-4 mb-1 text-gray-600 hover:border-gray-200 hover:bg-gray-200 hover:bg-gray-200 hover:text-teal-900 #{'bg-gray-300 text-teal-900 font-semibold' if @active_tab == 'surveys'}" %>
+    </li>
+    <li class="flex-1">
+      <%= link_to "Team", workspace_workspace_members_path(current_workspace), class: "block rounded py-2 px-4 mb-1 text-gray-600 hover:border-gray-200 hover:bg-gray-200 hover:bg-gray-200 hover:text-teal-900 #{'bg-gray-300 text-teal-900 font-semibold' if @active_tab == 'team_members'}" %>
+    </li>
+    <li class="flex-1">
+      <%= link_to "Settings", edit_workspace_path(current_workspace), class: "block rounded py-2 px-4 mb-1 text-gray-600 hover:border-gray-200 hover:bg-gray-200 hover:bg-gray-200 hover:text-teal-900 #{'bg-gray-300 text-teal-900 font-semibold' if @active_tab == 'settings'}" %>
+    </li>
+  </ul>
+
+  <div class="fixed bottom-0 flex flex-col mb-4 px-3 text-gray-600 text-sm">
+    <%= link_to "Help center", "https://help.heatcheck.co", class: "hover:text-gray-900 mb-5" %>
+    <% if signed_in? %>
+      <%= link_to "Logout", sign_out_path, class: "hover:text-gray-900" %>
+    <% end %>
+  </div>
+
+</aside>

@@ -1,0 +1,47 @@
+<div class="p-5">
+
+  <div class="mb-10">
+    <h1 class="text-2xl font-bold mb-3"><%= market_segment.headline %></h1>
+    <p><%= market_segment.subheadline %></p>
+  </div>
+
+  <div class="mb-5">
+    <%= f.hidden_field :step, value: 2 %>
+    <% if market_segment.segment_questions.any? %>
+      <% market_segment.segment_questions.values.each do |val| %>
+        <%= f.fields_for :market_segment_answers do |question| %>
+
+          <div class="mb-5">
+            <h2 class="text-xl my-3"><%= val %></h2>
+            <div class="w-full">
+              <%= question.range_field val, value: result.market_segment_answers[val], class: "w-full", min: "1", max: "5", step: "1", list: "ticks1" %>
+              <datalist id="ticks1">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </datalist>
+              <div class="flex justify-between text-xs">
+                <span>don’t identify</span><span>strongly identify</span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if market_segment.open_ended_question? %>
+      <div>
+        <h1 class="my-3">How would you describe the market segment you belong to?</h1>
+        <%= f.text_area :market_segment_open_answer, value: result.market_segment_open_answer, rows: 3,
+                        class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="inline-flex mt-5">
+    <%= f.submit "Back", step_back: true, class: "h-10 mr-5 w-24 cursor-pointer focus:outline-none bg-gray-300 hover:bg-gray-100 text-gray-800 text-sm font-bold my-3 px-3 border border-gray-400 rounded shadow" %>
+    <%= f.submit "Next", class: "h-10 mr-5 w-24 cursor-pointer focus:outline-none bg-gray-300 hover:bg-gray-100 text-gray-800 text-sm font-bold my-3 px-3 border border-gray-400 rounded shadow" %>
+  </div>
+
+</div>

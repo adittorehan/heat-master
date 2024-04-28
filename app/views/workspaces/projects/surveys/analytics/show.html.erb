@@ -1,0 +1,100 @@
+<div class="flex justify-center h-10 bg-primary-500">
+  <ul class="flex items-center justify-center">
+    <li class="mx-5">
+      <%= link_to "Summary",
+                  workspace_project_survey_analytics_path(current_workspace, current_project, current_project.survey),
+                  class: "text-white py-2 font-bold" %>
+    </li>
+    <li class="mx-5">
+      <%= link_to "Detailed",
+                  workspace_project_survey_detailed_analytics_path(current_workspace, current_project, current_project.survey),
+                  class: "text-white py-2" %>
+    </li>
+  </ul>
+</div>
+
+<% if @survey.results.blank? %>
+  <%= render "no_results" %>
+<% else %>
+
+  <div class="my-10">
+    <h1 class="text-2xl text-center"><%= pluralize(@survey.results.size, "submission") %>
+      for <%= @project.name %></h1>
+  </div>
+
+  <div class="mx-4">
+    <div data-controller="collapse" class="py-10">
+      <h2 class="font-bold">Highlights</h2>
+      <%= render "top_segments" %>
+      <%= render "bottom_segments" %>
+    </div>
+
+    <div class="py-10">
+      <h2 class="font-bold">Problem / market fit</h2>
+
+      <div class="rounded border mt-4">
+        <div class="p-4">
+          <div class="mr-20">
+            <table class="w-full text-center border-separate" data-controller="analytics-table-color">
+              <thead>
+              <tr>
+                <th class="py-4 px-6"/>
+                <% @survey.problem_questions.each do |statement| %>
+                  <th class="py-4 px-6 font-normal w-64"><%= statement %></th>
+                <% end %>
+              </tr>
+              </thead>
+              <tbody>
+              <% @survey.segment_questions.each do |question| %>
+                <tr>
+                  <td class="py-4 px-6 text-left w-64"><%= question %></td>
+                  <% market_to_problem_ratios(@survey, question).each do |ratio| %>
+                    <td class="py-4 px-6 max-w-xxs" data-target="analytics-table-color.cell">
+                      <%= ratio %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+              <%= render "legend" %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-10">
+      <h2 class="font-bold">Problem / solution fit</h2>
+
+      <div class="rounded border mt-4">
+        <div class="p-4">
+          <div class="mr-20">
+            <table class="w-full text-center border-separate" data-controller="analytics-table-color">
+              <thead>
+              <tr>
+                <th class="py-4 px-6"/>
+                <% @survey.problem_questions.each do |statement| %>
+                  <th class="py-4 px-6 font-normal w-64"><%= statement %></th>
+                <% end %>
+              </tr>
+              </thead>
+              <tbody>
+              <% @survey.solution_questions.each do |question| %>
+                <tr>
+                  <td class="py-4 px-6 text-left w-64"><%= question %></td>
+                  <% solution_to_problem_ratios(@survey, question).each do |ratio| %>
+                    <td class="py-4 px-6 max-w-xxs" data-target="analytics-table-color.cell">
+                      <%= ratio %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+              <%= render "legend" %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

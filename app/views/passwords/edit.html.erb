@@ -1,0 +1,27 @@
+<div class="w-full h-screen flex justify-center items-center">
+  <div class="w-1/4 mb-20">
+    <h1 class="mb-3 text-center text-2xl">
+      <% if @new_user %>
+        Set your password
+      <% else %>
+        Change your password
+      <% end %>
+    </h1>
+    <h3 class="mt-0 mb-5 text-center text-gray-800">
+      <% if @new_user %>
+        Please, choose your password below.
+      <% else %>
+        Your password has been reset. Choose a new password below.
+      <% end %>
+    </h3>
+    <div class="my-3">
+      <%= flash_messages %>
+    </div>
+    <div class="mt-4">
+      <%= form_for :password_reset, url: user_password_path(@user, token: @user.confirmation_token, new_user: @new_user ? "1" : "0"), html: { method: :patch } do |f| %>
+        <%= f.password_field :password, hide_label: true, placeholder: "Choose a password", class: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" %>
+        <%= f.submit @new_user ? "Set your password" : "Reset your password", class: "w-3/4 shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-black py-2 rounded my-6" %>
+      <% end %>
+    </div>
+  </div>
+</div>

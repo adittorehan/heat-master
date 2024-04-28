@@ -1,0 +1,14 @@
+johns_project:
+  workspace: johns_space
+  name: "John's project"
+  created_at: <%= Time.zone.now %>
+
+johns_second_project:
+  workspace: johns_space
+  name: "John's second project"
+  created_at: <%= Time.zone.now %>
+
+janes_project:
+  workspace: janes_space
+  name: "Janes project"
+  created_at: <%= Time.zone.now %>

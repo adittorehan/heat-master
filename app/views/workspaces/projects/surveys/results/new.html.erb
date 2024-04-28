@@ -1,0 +1,3 @@
+<%= form_for :results, url: workspace_project_survey_results_path(@project.workspace, @project, @project.survey), method: :post do |f| %>
+  <%= render "form", f: f %>
+<% end %>

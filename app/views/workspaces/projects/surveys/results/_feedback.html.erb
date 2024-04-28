@@ -1,0 +1,52 @@
+<div class="p-5">
+
+  <div class="mb-10">
+    <h1 class="text-2xl font-bold mb-3"><%= feedback.headline %></h1>
+    <p><%= feedback.subheadline %></p>
+  </div>
+
+  <div class="mb-5">
+    <%= f.hidden_field :step, value: 5 %>
+
+    <% if feedback.ask_for_testing? %>
+      <div class="mb-10">
+        <h3 class="mb-3"><%= feedback.ask_for_testing_label %></h3>
+
+        <% feedback.ask_for_testing_options.split("\n").map.with_index do |val, index| %>
+          <%= f.fields_for :feedback_answers do |question| %>
+            <div class="flex mb-2">
+              <div class="block">
+                <%= question.check_box val, { class: "mr-2 leading-tight", id: "checkbox_#{index}",
+                                              checked: (true if result.feedback_answers[val] == "1") }.compact %>
+                <label for=<%= "checkbox_#{index}" %> class="text-sm"><%= val %></label>
+              </div>
+
+            </div>
+          <% end %>
+        <% end %>
+    <% end %>
+    </div>
+
+    <% if feedback.ask_for_email? %>
+      <div class="my-6">
+        <h1 class="my-3"><%= feedback.ask_for_email_label %></h1>
+        <%= f.email_field :feedback_email, value: result.feedback_email,
+                          class: "shadow appearance-none border rounded w-full h-10 px-2 ml-auto text-gray-700 leading-tight" %>
+      </div>
+    <% end %>
+
+    <% if feedback.open_ended_question? %>
+      <div>
+        <h1 class="my-3">Anything else you'd like to tell us?</h1>
+        <%= f.text_area :feedback_open_answer, value: result.feedback_open_answer, rows: 3,
+                        class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="inline-flex mt-5">
+    <%= f.submit "Back", step_back: true, class: "h-10 mr-5 w-24 cursor-pointer focus:outline-none bg-gray-300 hover:bg-gray-100 text-gray-800 text-sm font-bold my-3 px-3 border border-gray-400 rounded shadow" %>
+    <%= f.submit "Complete Survey", class: "h-10 mr-5 w-42 cursor-pointer focus:outline-none bg-gray-300 hover:bg-gray-100 text-gray-800 text-sm font-bold my-3 px-3 border border-gray-400 rounded shadow" %>
+  </div>
+
+</div>

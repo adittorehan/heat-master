@@ -1,0 +1,6 @@
+johns_problem_statement:
+  survey: johns_project
+  headline: "Problems you experience"
+  subheadline: "test problem subheadline"
+  open_ended_question: 1
+  created_at: <%= Time.zone.now %>

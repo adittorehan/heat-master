@@ -1,0 +1,26 @@
+<div data-controller="micromodal" class="ml-56 overflow-y-auto">
+  <div class="mx-auto mt-20 w-3/4">
+    <h1 class="text-2xl text-teal-800 text-semibold">Team members</h1>
+    <div class="max-w-full flex-wrap justify-start mt-5">
+
+      <p>Invite and manage the people that will have access to this workspace</p>
+
+      <div class="my-4">
+        <%= flash_messages %>
+      </div>
+
+      <div class="table w-3/4 mt-10">
+        <%= render @workspace_members %>
+      </div>
+
+      <% if can? :create, @workspace_member %>
+        <%= link_to "+ Add member", new_workspace_workspace_member_url(current_workspace),
+                    class: "inline-block py-2 mt-6 focus:outline-none px-4 bg-primary-500 text-white hover:bg-primary-800 text-sm font-semibold border rounded",
+                    data: { "micromodal-trigger": "invite_team_member" },
+                    remote: true %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render "add_team_member" %>

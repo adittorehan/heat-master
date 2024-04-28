@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,400,600,700&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'micromodal';
+
+p {
+  @apply text-gray-800;
+}
+
+.button-outline {
+  @apply bg-transparent w-full text-sm text-teal-500 font-semibold py-2 px-4 border border-teal-500 rounded;
+  &:hover {
+    @apply border-teal-700 text-teal-700;
+  }
+}
+
+.text-input {
+  @apply rounded shadow border border-gray-200 w-full;
+}
+
+.error {
+  @apply bg-red-100 border border-red-500;
+  &:focus {
+    @apply outline-none bg-red-100;
+  }
+}
+
+form.new_workspace_member {
+  a {
+    @apply text-teal-500;
+    &:hover {
+      @apply text-teal-800;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+johns_solution_statement:
+  survey: johns_project
+  headline: "How do you perceive these solutions?"
+  subheadline: "test solution subheadline"
+  min_scale: "1"
+  max_scale: "5"
+  lowest_value_label: "don't identify"
+  highest_value_label: "strongly identify"
+  open_ended_question: 1
+  created_at: <%= Time.zone.now %>

@@ -1,0 +1,41 @@
+<div class="w-48 h-40 mx-5 my-5 border border-gray-300 relative rounded shadow-md text-center bg-white hover:shadow-lg hover:border-gray-400">
+  <ul data-controller="dropdown" class="fixed ml-40 pt-2 z-50">
+    <button data-action="click->dropdown#toggle click@window->dropdown#hide" class="rounded-full flex justify-between items-center text-left text-lg focus:outline-none hover:bg-gray-100 font-semibold">
+      <%= inline_svg("icons/more-vertical.svg", class: "mx-1 text-gray-600 inline", width: 16, heigth: 16) %>
+    </button>
+    <ul data-target="dropdown.menu" data-controller="micromodal" class="hidden bg-gray-100 mt-1 rounded shadow text-left">
+      <li class="text-gray-800 text-sm hover:bg-gray-200 hover:text-gray-900">
+        <%= link_to "Rename", edit_workspace_project_path(project.workspace, project), class: "block px-4 py-1", data: { "micromodal-trigger": "edit_project" }, remote: true %>
+      </li>
+      <li class="text-gray-800 text-sm hover:bg-gray-200 hover:text-gray-900">
+        <%= link_to "Delete", workspace_project_path(project.workspace, project), class: "block px-4 py-1", method: :delete, data: { confirm: "Are you sure you want to delete #{project.name}? This action cannot be undone." } %>
+      </li>
+    </ul>
+  </ul>
+
+  <% if project.survey.present? %>
+    <%= link_to(edit_workspace_project_survey_path(project.workspace, project, project.survey), class: "text-lg pt-16 h-full block truncate px-3") do %>
+      <%= project.name %>
+
+      <% if project.survey.results.size > 0 %>
+        <p class="absolute w-full inset-x bottom-0 left-0 mb-4 text-center text-gray-500 text-xs font-semibold">
+          <%= pluralize(project.survey.results.size, "response") %>
+        </p>
+      <% else %>
+        <p class="absolute w-full inset-x bottom-0 left-0 mb-4 text-center text-gray-500 text-xs font-semibold">
+          No responses
+        </p>
+      <% end %>
+
+    <% end %>
+  <% else %>
+    <%= link_to new_workspace_project_survey_path(project.workspace, project), class: "text-lg pt-16 h-full block truncate px-3" do %>
+      <%= project.name %>
+
+      <p class="absolute w-full inset-x bottom-0 left-0 mb-4 text-center text-gray-500 text-xs font-semibold">
+        Survey is not created yet
+      </p>
+
+    <% end %>
+  <% end %>
+</div>

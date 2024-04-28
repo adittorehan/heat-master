@@ -1,0 +1,13 @@
+<%= form_for workspace_member, url: workspace_workspace_members_path(current_workspace), remote: true do |f| %>
+  <div class="mt-6">
+    <%= f.label :email, class: "block mb-2 text-sm" %>
+    <%= f.email_field :email, placeholder: "email@example.com", class: "block w-full p-2 bg-gray-200 rounded" %>
+    <div class="mt-2 mx-1 text-sm">
+      <%= workspace_member.errors[:email].join(" ").html_safe %>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column-reverse flex-sm-row mt-3 mt-sm-5">
+    <%= f.submit "Add to workspace", class: "button-outline mt-5" %>
+  </div>
+<% end %>

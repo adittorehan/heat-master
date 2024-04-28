@@ -1,0 +1,26 @@
+john:
+  email: johndoe@example.com
+  first_name: John
+  last_name: Doe
+  encrypted_password: <%= BCrypt::Password.create("password") %>
+  remember_token: <%= Clearance::Token.new %>
+  confirmation_token: <%= Clearance::Token.new %>
+  status: active
+
+jane:
+  email: jane@example.com
+  first_name: Jane
+  last_name: Doe
+  encrypted_password: <%= BCrypt::Password.create("password") %>
+  remember_token: <%= Clearance::Token.new %>
+  confirmation_token: <%= Clearance::Token.new %>
+  status: active
+
+mark:
+  email: mark@example.com
+  first_name: Mark
+  last_name: Example
+  encrypted_password: <%= BCrypt::Password.create("password") %>
+  remember_token: <%= Clearance::Token.new %>
+  confirmation_token: <%= Clearance::Token.new %>
+  status: active

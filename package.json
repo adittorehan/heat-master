@@ -1,0 +1,37 @@
+{
+  "name": "heatcheck",
+  "private": true,
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint \"app/frontend/\" --ext .jsx,.js"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@babel/types": "^7.7.4",
+    "@rails/webpacker": "^4.0.7",
+    "actioncable": "^5.2.3",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "improved-yarn-audit": "^1.0.1",
+    "jquery": "^3.4.1",
+    "jquery-ujs": "^1.2.2",
+    "micromodal": "^0.4.2",
+    "rails-ujs": "^5.2.3",
+    "react": "^16.8.6",
+    "react-autosize-textarea": "^7.0.0",
+    "react-dom": "^16.8.6",
+    "react-modal": "^3.9.1",
+    "react_ujs": "^2.5.0",
+    "stimulus": "^1.1.1",
+    "tailwindcss": "^1.0.4",
+    "turbolinks": "^5.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "webpack-dev-server": "^3.7.2"
+  }
+}

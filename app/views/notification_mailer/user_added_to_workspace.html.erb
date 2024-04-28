@@ -1,0 +1,6 @@
+<h3>Hi, <%= @user.full_name %></h3>
+
+<p><%= @inviter.full_name %> has invited you to <%= @workspace.name %> in Heatcheck.
+  Join <%= @inviter.full_name %> in Heatcheck.
+  Click <%= link_to "here", workspace_projects_url(@workspace) %> to access the project.
+<p>

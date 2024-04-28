@@ -1,0 +1,89 @@
+<div class="flex justify-center h-10 bg-primary-500">
+  <ul class="flex items-center justify-center">
+    <li class="mx-5">
+      <%= link_to "Summary",
+                  workspace_project_survey_analytics_path(current_workspace, current_project, current_project.survey),
+                  class: "text-white py-2" %>
+    </li>
+    <li class="mx-5">
+      <%= link_to "Detailed",
+                  workspace_project_survey_detailed_analytics_path(current_workspace, current_project, current_project.survey),
+                  class: "text-white py-2 font-bold" %>
+    </li>
+  </ul>
+</div>
+
+<% if @survey.results.blank? %>
+  <%= render "workspaces/projects/surveys/analytics/no_results" %>
+<% else %>
+
+  <div class="shadow-md rounded my-6">
+    <table class="block overflow-auto">
+      <thead>
+      <tr class="bg-gray-200 font-bold text-sm text-grey-dark border-b">
+        <th class="px-2">
+          Respondent
+        </th>
+        <th class="px-2">
+          Email
+        </th>
+        <% @survey.segment_questions.each do |question| %>
+          <th class="min-w-sm px-2"><%= question %></th>
+        <% end %>
+        <th class="min-w-sm px-2">
+          Market segment open question
+        </th>
+        <% @survey.problem_questions.each do |question| %>
+          <th class="min-w-sm px-2"><%= question %></th>
+        <% end %>
+        <th class="min-w-sm px-2">
+          Problem statement open question
+        </th>
+        <% @survey.solution_questions.each do |question| %>
+          <th class="min-w-sm px-2"><%= question %></th>
+        <% end %>
+        <th class="min-w-sm px-2">
+          Solution statement open question
+        </th>
+        <% @survey.feedback_questions.each do |question| %>
+          <th class="min-w-sm px-2"><%= question %></th>
+        <% end %>
+        <th class="min-w-sm px-2">
+          Feedback open question
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @survey.results.sort.each do |result| %>
+        <tr class="hover:bg-gray-100 text-center border-b">
+          <td class="py-2"><%= result.id %></td>
+          <td class="py-2"><%= result.feedback_email %></td>
+          <% @survey.segment_questions.each do |question| %>
+            <td class="py-2"><%= result.market_segment_answers[question] %></td>
+          <% end %>
+
+          <td class="py-2"><%= result.market_segment_open_answer %></td>
+
+          <% @survey.problem_questions.each do |question| %>
+            <td class="py-2"><%= result.problem_statement_answers[question] %></td>
+          <% end %>
+
+          <td class="py-2"><%= result.problem_statement_open_answer %></td>
+
+          <% @survey.solution_questions.each do |question| %>
+            <td class="py-2"><%= result.solution_statement_answers[question] %></td>
+          <% end %>
+
+          <td class="py-2"><%= result.solution_statement_open_answer %></td>
+
+          <% @survey.feedback_questions.each do |question| %>
+            <td class="py-2"><%= number_to_answer(result.feedback_answers[question]) %></td>
+          <% end %>
+          <td class="py-2"><%= result.feedback_open_answer %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

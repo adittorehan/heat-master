@@ -1,0 +1,17 @@
+johns_membership:
+  user: john
+  workspace: johns_space
+  creator: true
+
+janes_membership:
+  user: jane
+  workspace: janes_space
+  creator: true
+
+marks_membership:
+  user: mark
+  workspace: johns_space
+
+johns_second_membership:
+  user: john
+  workspace: marks_space

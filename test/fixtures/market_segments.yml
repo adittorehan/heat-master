@@ -1,0 +1,11 @@
+johns_market_segment:
+  survey: johns_project
+  headline: "How much do you identify with these statements?"
+  subheadline: "test subheadline"
+  segment_questions: {"0": "test question", "1": "second question"}
+  min_scale: "1"
+  max_scale: "5"
+  lowest_value_label: "don't identify"
+  highest_value_label: "strongly identify"
+  open_ended_question: 1
+  created_at: <%= Time.zone.now %>

@@ -1,0 +1,19 @@
+<div class="w-10/12 mx-auto max-w-2xl">
+  <% if @result.errors.any? %>
+    <div id="error_explanation" class="mt-2 px-5">
+      <ul>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+          <% @result.errors.full_messages.each do |msg| %>
+            <li><span><%= msg %></span></li>
+          <% end %>
+        </div>
+      </ul>
+    </div>
+  <% end %>
+  <%= render "introduction", introduction: @survey.introduction, result: @result, f: f if @step == 1 %>
+  <%= render "market_segment", market_segment: @survey.market_segment, result: @result, f: f if @step == 2 %>
+  <%= render "problem_statement", problem_statement: @survey.problem_statement, result: @result, f: f if @step == 3 %>
+  <%= render "solution_statement", solution_statement: @survey.solution_statement, result: @result, f: f if @step == 4 %>
+  <%= render "feedback", feedback: @survey.feedback, result: @result, f: f if @step == 5 %>
+  <%= render "ending", ending: @survey.ending, result: @result, f: f if @step == 6 %>
+</div>

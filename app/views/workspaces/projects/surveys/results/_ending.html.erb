@@ -1,0 +1,64 @@
+<% short_url = short_url(
+    new_workspace_project_survey_result_url(current_project.workspace, current_project, current_project.survey),
+    category: "new survey"
+) %>
+<div class="mt-20 text-center">
+
+  <div class="mb-20">
+    <h1 class="text-2xl font-bold mb-3"><%= ending.headline %></h1>
+    <p><%= ending.subheadline %></p>
+  </div>
+
+  <div class="my-5">
+    <% if ending.include_sharing %>
+      <div class="mb-10 text-center">
+        <h3 class="text-xl">
+          Do you know someone else who should take this survey?
+          <br>
+          Please share this URL.
+        </h3>
+        <div class="my-10 mx-auto w-1/2 text-center">
+          <div class="border rounded pl-2 flex" data-controller="clipboard">
+            <input type="text" data-target="clipboard.source" class="w-full focus:outline-none"
+                   value="<%= short_url %>"
+                   readonly>
+            <button type="button" class="bg-black border border-black text-white ml-2 px-1 py-1 rounded-r focus:outline-none"
+                    data-action="clipboard#copy click@window->clipboard#hide">
+              <%= inline_svg("icons/clipboard.svg", class: "inline align-top",
+                             height: 24, width: 24, alt: "Copy to clipboard") %>
+            </button>
+            <span class="hidden text-sm" style="position: relative; top: 45px; left: 10px; margin-left: -48px;"
+                  data-target="clipboard.tooltip">Copied!</span>
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=<%= short_url %>" target="_blank"
+             type="button" class="focus:outline-none cursor-pointer">
+            <%= inline_svg("icons/facebook.svg", class: "inline p-2 mx-2",
+                           height: 50, width: 50, alt: "Facebook icon") %>
+          </a>
+
+          <a href="mailto:?body=<%= short_url %>"  target="_blank"
+             type="button" class="focus:outline-none cursor-pointer">
+            <%= inline_svg("icons/mail.svg", class: "inline p-2 mx-2",
+                           height: 50, width: 50, alt: "Email icon") %>
+          </a>
+
+          <a href="https://twitter.com/intent/tweet?text=<%= short_url %>" target="_blank"
+             type="button" class="focus:outline-none cursor-pointer">
+            <%= inline_svg("icons/twitter.svg", class: "inline p-2 mx-2",
+                           height: 50, width: 50, alt: "Twitter icon") %>
+          </a>
+
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= short_url %>" target="_blank"
+             type="button" class="focus:outline-none cursor-pointer">
+            <%= inline_svg("icons/linkedin.svg", class: "inline p-2 mx-2",
+                           height: 50, width: 50, alt: "Linkedin icon") %>
+          </a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

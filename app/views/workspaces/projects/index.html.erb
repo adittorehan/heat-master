@@ -1,0 +1,18 @@
+<div class="ml-56 overflow-y-auto">
+  <div class="mx-10 mt-5">
+    <h1 class="text-2xl text-teal-800 px-2 text-semibold">Surveys</h1>
+    <div class="flex flex-row -mx-2 max-w-full flex-wrap justify-start">
+      <%= link_to new_workspace_project_path, class: "mx-5 mt-5" do %>
+        <div class="flex justify-center items-center text-center w-48 h-40 bg-teal-600 text-center border border-gray-600 rounded shadow-md text-white hover:bg-teal-500 hover:shadow-lg">
+          <div class="flex-col">
+            <%= inline_svg("icons/plus.svg", class: "mx-auto", height: 50, width: 50) %>
+            <p class="text-white">New Survey</p>
+          </div>
+        </div>
+      <% end %>
+      <%= render @projects.order(:created_at) %>
+    </div>
+  </div>
+</div>
+
+<%= render "edit_project" %>

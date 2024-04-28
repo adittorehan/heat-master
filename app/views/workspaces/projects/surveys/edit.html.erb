@@ -1,0 +1,13 @@
+<%= react_component('SurveyEditor', { introduction: @survey.introduction,
+                                      introduction_image: @survey_introduction_image,
+                                      market_segment: @survey.market_segment,
+                                      problem_statement: @survey.problem_statement,
+                                      solution_statement: @survey.solution_statement,
+                                      feedback: @survey.feedback,
+                                      ending: @survey.ending,
+                                      share_link: short_url(
+                                          new_workspace_project_survey_result_url(current_project.workspace, current_project, current_project.survey),
+                                          category: "new survey"
+                                      ),
+                                      image_upload_link: workspace_project_survey_path(@survey.project.workspace, @survey.project, @survey)
+}) %>

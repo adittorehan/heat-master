@@ -1,0 +1,16 @@
+<ul data-controller="dropdown" class="w-56 pl-3 pr-8 fixed z-50">
+  <button data-action="click->dropdown#toggle click@window->dropdown#hide" class="flex justify-between items-center w-full text-left text-lg focus:outline-none hover:bg-gray-100 font-semibold">
+    <%= @current_workspace.name %><%= inline_svg("icons/chevron-down.svg", class: "ml-1 inline", width: 16, heigth: 16) %>
+  </button>
+  <ul data-target="dropdown.menu" class="hidden bg-white shadow-2xl rounded-lg w-56 mt-2 border border-gray-200">
+    <% if current_user.workspaces.size > 1 %>
+      <% current_user.workspaces.reject { |space| space == @current_workspace }.each do |workspace| %>
+        <li class="text-gray-800 text-sm hover:bg-gray-100 hover:text-gray-900">
+          <%= link_to workspace.name, workspace_projects_path(workspace), class: "block px-6 py-4 " %></li>
+      <% end %>
+    <% end %>
+    <li class="hover:text-gray-900 text-gray-600 text-sm">
+      <%= link_to "+ New workspace", new_workspace_path, class: "block px-6 py-3" %>
+    </li>
+  </ul>
+</ul>

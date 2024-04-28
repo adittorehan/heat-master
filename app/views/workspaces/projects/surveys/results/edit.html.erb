@@ -1,0 +1,5 @@
+<%= form_for :results, url: workspace_project_survey_result_path(@project.workspace, @project, @project.survey), method: :patch do |f| %>
+  <%= render "form", f: f %>
+<% end %>
+
+<%= render "complete_later_modal", workspace: @project.workspace, project: @project, survey: @project.survey, result: @result %>

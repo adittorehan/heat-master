@@ -1,0 +1,23 @@
+<div class="flex flex-wrap mt-4">
+  <div class="flex flex-col w-1/3 max-w-xs mr-6 mb-5 border rounded bg-white p-5 pb-4">
+    <p class="flex-bottom mb-3 text-green-500 text-xs font-semibold">
+      Most promising market segment
+    </p>
+    <p class="flex-grow h-full"><%= top_market(@survey) %></p>
+  </div>
+
+  <div class="flex flex-col w-1/3 max-w-xs mr-6 mb-5 border rounded bg-white p-5 pb-4">
+    <p class="flex-bottom mb-3 text-green-500 text-xs font-semibold">
+      Most experienced problem
+    </p>
+    <p class="flex-grow h-full"><%= top_problem(@survey) %></p>
+  </div>
+
+  <div class="flex flex-col w-1/3 max-w-xs mr-6 mb-5 border rounded bg-white p-5 pb-4">
+    <p class="flex-bottom mb-3 text-green-500 text-xs font-semibold">
+      Most appealing solution
+    </p>
+    <p class="flex-grow h-full"><%= top_solution(@survey) %></p>
+
+  </div>
+</div>

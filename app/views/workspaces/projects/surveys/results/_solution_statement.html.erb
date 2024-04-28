@@ -1,0 +1,51 @@
+<div class="p-5">
+
+  <div class="mb-10">
+    <h1 class="text-2xl font-bold mb-3"><%= solution_statement.headline %></h1>
+    <p><%= solution_statement.subheadline %></p>
+  </div>
+
+  <div class="mb-5">
+    <%= f.hidden_field :step, value: 4 %>
+    <% if solution_statement.solution_segments.any? %>
+      <% solution_statement.solution_segments.values.each do |val| %>
+        <%= f.fields_for :solution_statement_answers do |question| %>
+
+          <div class="mb-5">
+            <h2 class="text-xl my-3"><%= val %></h2>
+            <div class="w-full">
+              <%= question.range_field val, value: result.solution_statement_answers[val], class: "w-full", min: "1", max: "5", step: "1", list: "ticks1" %>
+              <datalist id="ticks1">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </datalist>
+              <div class="flex justify-between text-xs">
+                <span>don’t identify</span><span>strongly identify</span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if solution_statement.open_ended_question? %>
+      <div>
+        <h1 class="my-3">Have you tried any of the above solutions? If so, what happened?</h1>
+        <%= f.text_area :solution_statement_open_answer, value: result.solution_statement_open_answer, rows: 3,
+                        class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="inline-flex mt-5">
+    <%= f.submit "Back", step_back: true, class: "h-10 mr-5 w-24 cursor-pointer focus:outline-none bg-gray-300 hover:bg-gray-100 text-gray-800 text-sm font-bold my-3 px-3 border border-gray-400 rounded shadow" %>
+    <% unless @survey.feedback.active? %>
+      <%= f.submit "Complete Survey", class: "h-10 mr-5 w-42 cursor-pointer focus:outline-none bg-gray-300 hover:bg-gray-100 text-gray-800 text-sm font-bold my-3 px-3 border border-gray-400 rounded shadow" %>
+    <% else %>
+      <%= f.submit "Next", class: "h-10 mr-5 w-24 cursor-pointer focus:outline-none bg-gray-300 hover:bg-gray-100 text-gray-800 text-sm font-bold my-3 px-3 border border-gray-400 rounded shadow" %>
+    <% end%>
+  </div>
+
+</div>

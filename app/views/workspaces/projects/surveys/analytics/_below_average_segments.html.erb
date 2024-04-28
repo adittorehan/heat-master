@@ -1,0 +1,28 @@
+<div class="flex flex-wrap mt-2">
+  <% below_average_markets(@survey)&.each do |segment| %>
+    <div class="flex flex-col min-w-64 max-w-xs mr-6 mb-5 border rounded bg-white p-5 pb-4">
+      <p class="flex-grow h-full"><%= segment %></p>
+      <p class="flex-bottom mt-5 text-red-500 text-xs font-semibold">
+        Segment scored lower than the average
+      </p>
+    </div>
+  <% end %>
+
+  <% below_average_problems(@survey)&.each do |segment| %>
+    <div class="flex flex-col min-w-64 max-w-xs mr-6 mb-5 border rounded bg-white p-5 pb-4">
+      <p class="flex-grow h-full"><%= segment %></p>
+      <p class="flex-bottom mt-5 text-red-500 text-xs font-semibold">
+        Problem scored lower than the average
+      </p>
+    </div>
+  <% end %>
+
+  <% below_average_solutions(@survey)&.each do |segment| %>
+    <div class="flex flex-col min-w-64 max-w-xs mr-6 mb-5 border rounded bg-white p-5 pb-4">
+      <p class="flex-grow h-full"><%= segment %></p>
+      <p class="flex-bottom mt-5 text-red-500 text-xs font-semibold">
+        Solution scored lower than the average
+      </p>
+    </div>
+  <% end %>
+</div>

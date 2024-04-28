@@ -1,0 +1,20 @@
+<div class="modal mb-20" id="invite_team_member" aria-hidden="true">
+  <div class="modal-overlay" tabindex="-1" data-micromodal-close>
+    <div class="modal-container mb-32" role="dialog" aria-modal="true" aria-labelledby="invite_team_member-title">
+      <header class="flex justify-between mb-6">
+        <h2 class="text-teal-800 font-bold" id="invite_team_member-title">
+          Add a colleague to <%= current_workspace.name %>
+        </h2>
+        <button class="text-sm text-gray-500 focus:outline-none" aria-label="Close modal" data-micromodal-close>Close</button>
+      </header>
+      <main class="" id="invite_team_member-content">
+        <p class="my-4 text-sm">
+          Enter the email address of your colleague to add him or her to the team.
+          Your colleague needs to have a HeatCheck account in order to join your team.
+        </p>
+        <div data-role="invite_team_member">
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

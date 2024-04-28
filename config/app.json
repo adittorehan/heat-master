@@ -1,0 +1,38 @@
+{
+  "name": "Heatcheck",
+  "description": "Heatcheck staging",
+  "scripts": {
+    "postdeploy": "bundle exec rake db:schema:load db:seed",
+    "dokku": {
+      "predeploy": "bin/rails db:migrate"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "as": "DATABASE"
+    },
+    {
+      "plan": "heroku-redis:hobby-dev",
+      "as": "REDIS"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs.git#v87"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "env": {
+    "APP_HOST": {
+      "value": "https://firmhouse-dispatch-stag-pr-942.herokuapp.com/"
+    }
+  },
+  "formation": {
+    "sidekiq": {
+      "quantity": 1
+    }
+  }
+}

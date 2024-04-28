@@ -1,0 +1,11 @@
+johns_space:
+  name: "Johns space"
+  created_at: <%= Time.zone.now %>
+
+janes_space:
+  name: "Janes space"
+  created_at: <%= Time.zone.now %>
+
+marks_space:
+  name: "Marks space"
+  created_at: <%= Time.zone.now %>

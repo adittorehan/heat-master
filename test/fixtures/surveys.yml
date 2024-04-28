@@ -1,0 +1,4 @@
+johns_project:
+  project: johns_project
+  name: "John's project"
+  created_at: <%= Time.zone.now %>

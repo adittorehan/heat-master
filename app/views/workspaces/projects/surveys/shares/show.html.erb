@@ -1,0 +1,86 @@
+<% short_url = short_url(
+    new_workspace_project_survey_result_url(current_project.workspace, current_project, current_project.survey),
+    category: "new survey"
+) %>
+
+<div class="text-center mt-20">
+  <% if current_project.survey %>
+    <div>
+      <h1 class="text-2xl text-center">Use the link below to share your survey </h1>
+    </div>
+    <div class="mt-16 mx-auto w-1/4 text-center">
+      <div class="border rounded pl-2 flex" data-controller="clipboard">
+        <input type="text" data-target="clipboard.source" class="w-full focus:outline-none"
+               value="<%= short_url %>"
+               readonly>
+        <button class="bg-teal-500 border border-teal-500 text-white ml-2 px-1 py-1 rounded-r focus:outline-none" data-action="clipboard#copy">
+          <%= inline_svg("icons/clipboard.svg", class: "inline",
+                         height: 24, width: 24, alt: "Copy to clipboard") %>
+        </button>
+        <span class="hidden text-sm" style="position: relative; top: 45px; left: 10px; margin-left: -48px;"
+              data-target="clipboard.tooltip">Copied!</span>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=<%= short_url %>" target="_blank"
+         type="button" class="focus:outline-none cursor-pointer">
+        <%= inline_svg("icons/facebook.svg", class: "inline p-2 mx-2",
+                       height: 50, width: 50, alt: "Facebook icon") %>
+      </a>
+
+      <a href="mailto:?body=<%= short_url %>"  target="_blank"
+         type="button" class="focus:outline-none cursor-pointer">
+        <%= inline_svg("icons/mail.svg", class: "inline p-2 mx-2",
+                       height: 50, width: 50, alt: "Email icon") %>
+      </a>
+
+      <a href="https://twitter.com/intent/tweet?text=<%= short_url %>" target="_blank"
+         type="button" class="focus:outline-none cursor-pointer">
+        <%= inline_svg("icons/twitter.svg", class: "inline p-2 mx-2",
+                       height: 50, width: 50, alt: "Twitter icon") %>
+      </a>
+
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= short_url %>" target="_blank"
+         type="button" class="focus:outline-none cursor-pointer">
+        <%= inline_svg("icons/linkedin.svg", class: "inline p-2 mx-2",
+                       height: 50, width: 50, alt: "Linkedin icon") %>
+      </a>
+    </div>
+
+    <div class="mt-12 mx-auto w-3/4 text-center">
+      <p class="mt-4">
+        You want to share your survey URL far and wide, but remember, you're actually trying to
+        find the specific people you described in your market segments.
+        This is truly the "hustle" part of testing new ideas.
+      </p>
+
+      <p class="mt-4">
+        Where does your market segment hang out? In other words, where can you find them together.
+        The answer could be online or offline. To share online, use the URL above.
+        Ways you might share the URL online: Facebook, Google, or Linked-In ads
+        Forums specializing in a topic that interests your market segment.
+        Meetup.com for meetings around a topic that interests your market segment.
+        Reach out to bloggers, podcasters, or other influencers who write or talk about a topic that interests your
+        market
+        segment.
+      </p>
+
+      <p class="mt-4">
+        To share offline, create a flier or "business card" to hand out.
+        You might also use a URL shortener like
+        <a class="text-primary-800" href="https://bit.ly" target="_blank">bit.ly</a> , to create a memorable URL.
+        Ways you might share the URL offline: Superbowl ad (just kidding), Billboard Flier posted to a telephone pole
+        Bulletin board at a coffee shop,
+        Attend a meetup in person
+        Ask around at a farmer's market or coffee shop (where does your market segment "hang out"?
+      </p>
+
+    </div>
+  <% else %>
+    <div class="w-1/2 m-auto text-center mt-56">
+      <h1 class="font-bold mb-3">Nothing to share yet!</h1>
+      <p>Once you fill in your survey, share links will appear here.</p>
+    </div>
+  <% end %>
+</div>

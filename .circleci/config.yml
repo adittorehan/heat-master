@@ -1,0 +1,126 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/circleci-app
+    docker:
+      - image: circleci/ruby:2.6.1-node-browsers
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: circleci-app
+          RAILS_ENV: test
+          LANG: C.UTF-8
+          LC_ALL: C.UTF-8
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: circleci-app
+          POSTGRES_DB: heatcheck_test
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+
+      - run:
+          name: Install Chrome
+          command: |
+            sudo apt-get install -y libappindicator3-1
+            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome.deb
+            sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+            rm google-chrome.deb
+
+      # Which version of bundler?
+      - run:
+          name: Which bundler?
+          command: bundle -v
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - app-bundle-{{ checksum "Gemfile.lock" }}
+            - app-bundle-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: app-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Select chrome driver
+          command: bundle exec chromedriver-update 2.46
+
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - app-yarn-{{ checksum "yarn.lock" }}
+            - app-yarn-
+
+      - run:
+          name: Install latest yarn
+          command: sudo npm install --global yarn
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: app-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+
+      - run:
+          name: Check seeds integrity
+          command: bundle exec rake db:seed
+
+      - run:
+          name: Run Brakeman
+          command: bundle exec brakeman --no-pager --exit-on-warn --ensure-latest
+
+      - run:
+          name: Run Bundle Audit
+          command: bundle exec bundle audit check --update
+
+      - run:
+          name: Run yarn audit
+          command: bundle exec yarn improved-yarn-audit --exclude 1523
+
+      - run:
+          name: Run Eslint
+          command: bundle exec yarn run lint
+
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
+
+      - run:
+          name: Run rails tests
+          command: bundle exec rake test
+
+      - run:
+          name: Run rails system tests
+          command: bundle exec rake test:system
+
+      - store_artifacts:
+          path: tmp/screenshots
+
+      - store_artifacts:
+          path: log/test.log
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results

@@ -1,0 +1,5 @@
+johns_project_first_entry:
+  survey: johns_project
+  created_at: <%= Time.zone.now %>
+  market_segment_answers: {"first segment":"1"}
+  market_segment_open_answer: "market test"
