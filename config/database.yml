@@ -81,8 +81,3 @@ development:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: heatcheck_production
-  username: heatcheck
-  password: <%= ENV['HEATCHECK_DATABASE_PASSWORD'] %>
